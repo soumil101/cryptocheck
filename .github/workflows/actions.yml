@@ -2,7 +2,7 @@ name: run generate_data.py
 
 on:
     schedule:
-      - cron: '*/5 * * * *' # This runs the workflow every 5 minutes
+      - cron: '0 * * * *' # This runs the workflow every hour
 
 jobs:
   build:

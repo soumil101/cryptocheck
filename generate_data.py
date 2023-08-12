@@ -5,15 +5,13 @@ import datetime
 import pandas as pd
 
 def get_current_currencies():
-    url = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum%2Cbitcoin%2Calgorand&vs_currencies=usd"
+    url = "https://api.coinbase.com/v2/exchange-rates?currency=USD"
     response = requests.get(url)
-    currencies = json.loads(response.text)
+    currencies = json.loads(response.text)["data"]["rates"]
 
-    # Clean data
-    for coin, info in currencies.items():
-        usd_amount = info['usd']
-        currencies[coin] = usd_amount
-        del info['usd']
+    # Convert exchange rates to USD
+    for currency in currencies:
+        currencies[currency] = 1/float(currencies[currency])
 
     # Add timestamp for each price
     current_date_time = datetime.datetime.now()
@@ -30,10 +28,10 @@ def get_current_currencies():
     df = pd.DataFrame.from_dict(data)
 
     # Write to CSV
-    if os.path.getsize('./data/test.csv') == 0:
-        df.to_csv('./data/test.csv', index=False)        
+    if os.path.getsize('./data/data.csv') == 0:
+        df.to_csv('./data/data.csv', index=False)        
     else:
-        df.to_csv('./data/test.csv', mode='a', index=False, header=False)
+        df.to_csv('./data/data.csv', mode='a', index=False, header=False)
 
 
 if __name__ == "__main__":
