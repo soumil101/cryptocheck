@@ -10,6 +10,7 @@ def get_current_currencies():
     currencies = json.loads(response.text)["data"]["rates"]
 
     for currency in currencies:
+        currencies[currency] = int(currencies[currency])
         currencies[currency] = 1/currencies[currency]
 
     print(currencies)
