@@ -1,4 +1,4 @@
-name: run _test_workflow.py
+name: run generate_data.py
 
 on:
     schedule:
