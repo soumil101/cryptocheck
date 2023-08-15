@@ -11,7 +11,7 @@ st. set_page_config(layout="wide")
 st.title("CryptoCheck")
 
 # Read data into a dataframe
-df = pd.read_csv("./data/_test.csv")
+df = pd.read_csv("./data/data.csv")
 
 # Create a list of coins to display
 coins = []
