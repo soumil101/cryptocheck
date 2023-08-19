@@ -2,6 +2,7 @@
 _test*
 
 # Environments
+.env
 env
 venv
 env/
