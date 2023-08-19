@@ -23,7 +23,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: execute py script # run main.py
-        run: python fetch_data.py
+        run: python fetch_data.py > status.log
 
       - name: commit files
         run: |
