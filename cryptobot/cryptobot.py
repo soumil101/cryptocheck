@@ -20,6 +20,7 @@ class CoinbaseProWebsocketClient:
     def __init__(self, trading_pairs):
         self.trading_pairs = trading_pairs
         self.socket = "wss://ws-feed.pro.coinbase.com"
+        print("Connecting to Coinbase Pro websocket feed...")
         self.ws = websocket.WebSocketApp(self.socket, on_open=self.on_open, on_close=self.on_close, on_message=self.on_message)
 
     def on_open(self, ws):
@@ -41,9 +42,29 @@ class CoinbaseProWebsocketClient:
         self.start()
 
     def on_message(self, ws, message):
+        """
+        example message:
+        {
+        'type': 'ticker',
+        'sequence': 21001303035,
+        'product_ id': "BTC-USD',
+        'price': '38602.73',
+        'open_24h': '40333.2',
+        'volume 24h': 21859.62681902',
+        'low 24h': '38000',
+        'high 24h': '41000',
+        'volume_30d': '952454.25720669',
+        'best_bid': '38602.09',
+        'best _ask': '38602.73',
+        'side'; 'buy',
+        'time': 2021-02-07T14:25:46.833328Z',
+        'trade id': 130157451,
+        'last_size': '0.00773371',
+        }
+        """
         ticker = json.loads(message)
         if 'price' in ticker:
-            print(f"Latest BTC-USD price: {ticker['price']}")
+            print(f"Latest {ticker['product_id']} price: {ticker['price']}")
 
     def start(self):
         while True:
@@ -55,6 +76,6 @@ class CoinbaseProWebsocketClient:
                 self.ws.close()
                 time.sleep(5)
 
-trading_pairs = ["BTC-USD"]
+trading_pairs = ["ETH-USD"]
 wsClient = CoinbaseProWebsocketClient(trading_pairs)
 wsClient.start() 
