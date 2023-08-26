@@ -36,4 +36,9 @@ def get_current_currencies():
 
 if __name__ == "__main__":
     timed_currencies = {}
-    get_current_currencies()
+    try:
+        get_current_currencies()
+        print("Data fetched successfully")
+    except Exception as e:
+        print(e)
+        print("Error getting data")
